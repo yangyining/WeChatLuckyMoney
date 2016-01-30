@@ -7,7 +7,7 @@
 一个帮助你在微信抢红包时战无不胜的Android应用。自动检测并且拆开红包，速度超乎你的想象。
 
 
-3Power by https://github.com/geeeeeeeeek/WeChatLuckyMoney
+#Power by https://github.com/geeeeeeeeek/WeChatLuckyMoney
 
 ### **版权及免责声明**
 
