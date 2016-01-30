@@ -40,7 +40,7 @@
             android:scaleType="centerInside"
             android:layout_above="@+id/textView3"
             android:layout_centerHorizontal="true"
-            android:onClick="openGithub" android:clickable="true"
+            android:clickable="true"
     />
     <TextView
             android:layout_width="fill_parent"
@@ -48,7 +48,7 @@
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
             android:text="稳定版 v2.1"
             android:id="@+id/textView3"
-            android:gravity="center" android:onClick="openGithub"
+            android:gravity="center"
             android:clickable="true" android:layout_centerInParent="true" android:textColor="#c5a45e"
             android:paddingTop="6dp" android:paddingBottom="1dp"/>
     <TextView
@@ -63,11 +63,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="https://github.com/geeeeeeeeek/WeChatLuckyMoney"
+            android:text="安全、绿色、基于开源项目"
             android:id="@+id/github" android:gravity="center_horizontal"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true" android:layout_marginBottom="20dp" android:layout_marginTop="20dp"
-            android:textColor="#5272ae" android:clickable="true" android:onClick="openGithub"/>
+            android:textColor="#5272ae" />
     <Button
             android:id="@+id/button_accessible"
             android:text="@string/service_name"
