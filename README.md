@@ -2,43 +2,12 @@
 
 [![forthebadge](http://forthebadge.com/images/badges/designed-in-ms-paint.svg)](http://forthebadge.com)[![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com) 
 
-[![Build Status](https://travis-ci.org/geeeeeeeeek/WeChatLuckyMoney.svg?branch=stable)](https://travis-ci.org/geeeeeeeeek/WeChatLuckyMoney)  [**English README**](https://github.com/geeeeeeeeek/WeChatLuckyMoney/blob/stable/README_EN.md)
+[![Build Status](https://travis-ci.org/yangyining/WeChatLuckyMoney.svg?branch=stable)](https://travis-ci.org/yangyining/WeChatLuckyMoney)
 
 一个帮助你在微信抢红包时战无不胜的Android应用。自动检测并且拆开红包，速度超乎你的想象。
 
-前往[**Release**](https://github.com/geeeeeeeeek/WeChatLuckyMoney/releases/)下载最新版本。已下载用户可直接在设置里面更新。
 
-### 特性
-
-- **监视选项任意组合，满足多样化的使用需求**[[?]](https://github.com/geeeeeeeeek/WeChatLuckyMoney/issues/48)
-  
-  提供了`系统通知`/`聊天列表`/`聊天页面`三档选项，无论是想要谨慎不被察觉，还是想要高效志在必得，这个插件如你所愿。
-  
-- **不仅快人一步，红包识别更加智能**
-  
-  多种特征标识，聊天时不再重复点击红包。智能过滤红包关键字[[?]](https://github.com/geeeeeeeeek/WeChatLuckyMoney/issues/96)，避免落入“专属红包”、“抢到翻倍”的陷阱。
-  
-- **紧跟微信更新，内置最新春节红包资讯**
-  
-  第一时间适配最新版本微信，应用内即可一键更新。
-  
-- **轻量、安全、值得信赖**
-  
-  安装包仅1M，无需ROOT，下载即用。代码公开透明，活跃的社区讨论，数万用户下载，值得你的信赖。
-
-### 使用方法
-
-1. 打开『微信红包』应用，开启插件。
-2. 做你想做的事。
-3. 坐等红包进账。
-
-### 实现原理
-
-请见[技术文档](https://github.com/geeeeeeeeek/WeChatLuckyMoney/blob/dev/README.md)，注意文档描述的是dev分支(已弃用)的具体实现，而不是stable分支。若有疑问，请在[ISSUES](https://github.com/geeeeeeeeek/WeChatLuckyMoney/issues)中提出。
-
-### 更新日志
-
-完整的更新日志请见[CHANGELOG](https://github.com/geeeeeeeeek/WeChatLuckyMoney/blob/stable/CHANGELOG.md)。
+3Power by https://github.com/geeeeeeeeek/WeChatLuckyMoney
 
 ### **版权及免责声明**
 
