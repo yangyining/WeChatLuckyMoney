@@ -21,7 +21,7 @@ script:
 - ./gradlew assembleRelease
 deploy:
   provider: releases
-  #api_key:please use travis to config api key to upload release
+  api_key:9f5e447973f932841236ad0797990e9af22311b1
   file: app/build/outputs/apk/app-release.apk
   skip_cleanup: true
   on:
