@@ -22,10 +22,8 @@ script:
 deploy:
   provider: releases
   #api_key:please use travis to config api key to upload release
-#  api_key:
-#    secure: 230cff2728939b1510b3e865b236f890b6203eb7
-  user: yyn_0210@sina.com
-  password: yyn123456
+  api_key:
+    secure: 230cff2728939b1510b3e865b236f890b6203eb7
   file: app/build/outputs/apk/app-release.apk
   skip_cleanup: true
   on:
