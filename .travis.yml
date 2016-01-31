@@ -10,7 +10,12 @@ android:
   - build-tools-21.1.2
   - android-L
   - extra
+git:
+  submodules: false
 before_install:
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - git submodule init && git submodule update
+#before_install:
 #please use travis to config your sign
 before_script:
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
