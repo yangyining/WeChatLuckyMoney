@@ -22,7 +22,7 @@ script:
 deploy:
   provider: releases
   #api_key:please use travis to config api key to upload release
-  api_key: 9f5e447973f932841236ad0797990e9af22311b1
+  api_key: a4e6377ea95d59cd983b10682f85873df17e0654s
 #    secure: 9f5e447973f932841236ad0797990e9af22311b1
   file: app/build/outputs/apk/app-release.apk
   skip_cleanup: true
