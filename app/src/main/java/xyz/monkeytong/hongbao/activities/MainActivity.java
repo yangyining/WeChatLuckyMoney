@@ -124,11 +124,4 @@ public class MainActivity extends Activity {
         startActivity(settingsIntent);
     }
 
-    public void openNews(View view) {
-        Intent webViewIntent = new Intent(this, WebViewActivity.class);
-        webViewIntent.putExtra("title", "红包攻略");
-        webViewIntent.putExtra("url", "http://sec-cdn.static.xiaomi.net/secStatic/proj/luckyNewsInfo/0127/index.html?v=1&");
-        startActivity(webViewIntent);
-    }
-
 }
