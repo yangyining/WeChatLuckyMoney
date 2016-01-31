@@ -1,7 +1,9 @@
 package xyz.monkeytong.hongbao.activities;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,10 +11,12 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import xyz.monkeytong.hongbao.R;
+import xyz.monkeytong.hongbao.utils.NotificationUtil;
 import xyz.monkeytong.hongbao.utils.UpdateTask;
 
 /**
@@ -36,6 +40,25 @@ public class SettingsActivity extends PreferenceActivity {
                 new UpdateTask(getApplicationContext(), true).update();
                 return false;
             }
+        });
+
+        final Context context = this;
+        // Set quick start notification
+        Preference quickStart = findPreference("pref_quick_start");
+        quickStart.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                Log.d("sig", newValue.toString());
+                if((Boolean)newValue){
+                    NotificationUtil.showNotification(context);
+                }
+                // 清楚常驻状态栏通知
+                else {
+                    NotificationUtil.cleanNotification(context);
+                }
+                return true;
+            }
+
         });
 
         // Open issue

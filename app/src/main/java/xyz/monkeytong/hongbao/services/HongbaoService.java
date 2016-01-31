@@ -2,6 +2,7 @@ package xyz.monkeytong.hongbao.services;
 
 import android.accessibilityservice.AccessibilityService;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.SharedPreferences;
@@ -12,7 +13,10 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+
+import xyz.monkeytong.hongbao.R;
 import xyz.monkeytong.hongbao.utils.HongbaoSignature;
+import xyz.monkeytong.hongbao.utils.NotificationUtil;
 import xyz.monkeytong.hongbao.utils.PowerUtil;
 
 import java.util.List;
@@ -246,6 +250,8 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
         if (key.equals("pref_watch_on_lock")) {
             Boolean changedValue = sharedPreferences.getBoolean(key, false);
             this.powerUtil.handleWakeLock(changedValue);
+        } else if (key.equals("pref_quick_start")) {
+
         }
     }
 

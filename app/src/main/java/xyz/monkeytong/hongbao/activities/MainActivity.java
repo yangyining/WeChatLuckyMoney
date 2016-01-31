@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -14,14 +15,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
-import xyz.monkeytong.hongbao.R;
-import xyz.monkeytong.hongbao.utils.ConnectivityUtil;
-import xyz.monkeytong.hongbao.utils.UpdateTask;
 
-import java.lang.reflect.Method;
 import java.util.List;
 
 import im.fir.sdk.FIR;
+import xyz.monkeytong.hongbao.R;
+import xyz.monkeytong.hongbao.utils.ConnectivityUtil;
+import xyz.monkeytong.hongbao.utils.NotificationUtil;
+import xyz.monkeytong.hongbao.utils.UpdateTask;
 
 
 
@@ -29,11 +30,14 @@ public class MainActivity extends Activity {
     private final Intent mAccessibleIntent =
             new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
 
+    private SharedPreferences sharedPreferences;
+
     private Button switchPlugin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         FIR.init(this);
         setContentView(R.layout.activity_main);
         switchPlugin = (Button) findViewById(R.id.button_accessible);
@@ -42,6 +46,16 @@ public class MainActivity extends Activity {
         updateServiceStatus();
 
         explicitlyLoadPreferences();
+
+        Boolean changedValue = sharedPreferences.getBoolean("pref_watch_on_lock", false);
+        // 显示常驻状态栏通知
+        if(changedValue){
+            NotificationUtil.showNotification(this);
+        }
+        // 清楚常驻状态栏通知
+        else {
+            NotificationUtil.cleanNotification(this);
+        }
     }
 
     private void explicitlyLoadPreferences() {
@@ -103,13 +117,6 @@ public class MainActivity extends Activity {
 
     public void onButtonClicked(View view) {
         startActivity(mAccessibleIntent);
-    }
-
-    public void openGithub(View view) {
-        Intent webViewIntent = new Intent(this, WebViewActivity.class);
-        webViewIntent.putExtra("title", "Github项目主页");
-        webViewIntent.putExtra("url", "https://github.com/geeeeeeeeek/WeChatLuckyMoney");
-        startActivity(webViewIntent);
     }
 
     public void openGithubReleaseNotes(View view) {
