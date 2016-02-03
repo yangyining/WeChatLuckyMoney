@@ -42,19 +42,19 @@ public class SettingsActivity extends PreferenceActivity {
             }
         });
 
-        final Context context = this;
+        final Context context = this.getApplicationContext();
         // Set quick start notification
         Preference quickStart = findPreference("pref_quick_start");
         quickStart.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                NotificationUtil notificationUtil = NotificationUtil.getInstance();
+                NotificationUtil notificationUtil = NotificationUtil.getInstance(context);
                 if((Boolean)newValue){
-                    notificationUtil.showNotification(context);
+                    notificationUtil.showNotification();
                 }
                 // 清楚常驻状态栏通知
                 else {
-                    notificationUtil.cleanNotification(context);
+                    notificationUtil.cleanNotification();
                 }
                 return true;
             }

@@ -36,6 +36,7 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         CrashReport.initCrashReport(getApplicationContext(), "900019352", false);
         setContentView(R.layout.activity_main);
@@ -47,15 +48,15 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
         explicitlyLoadPreferences();
 
         // 设置通知栏是否常驻
-        NotificationUtil notificationUtil = NotificationUtil.getInstance();
+        NotificationUtil notificationUtil = NotificationUtil.getInstance( this.getApplicationContext());
         Boolean changedValue = sharedPreferences.getBoolean("pref_quick_start", false);
         // 显示常驻状态栏通知
         if(changedValue){
-            notificationUtil.showNotification(this);
+            notificationUtil.showNotification();
         }
         // 清楚常驻状态栏通知
         else {
-            notificationUtil.cleanNotification(this);
+            notificationUtil.cleanNotification();
         }
 
         //监听AccessibilityService 变化
