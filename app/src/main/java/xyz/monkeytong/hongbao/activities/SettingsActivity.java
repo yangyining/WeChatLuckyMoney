@@ -48,13 +48,13 @@ public class SettingsActivity extends PreferenceActivity {
         quickStart.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                Log.d("sig", newValue.toString());
+                NotificationUtil notificationUtil = NotificationUtil.getInstance();
                 if((Boolean)newValue){
-                    NotificationUtil.showNotification(context);
+                    notificationUtil.showNotification(context);
                 }
                 // 清楚常驻状态栏通知
                 else {
-                    NotificationUtil.cleanNotification(context);
+                    notificationUtil.cleanNotification(context);
                 }
                 return true;
             }

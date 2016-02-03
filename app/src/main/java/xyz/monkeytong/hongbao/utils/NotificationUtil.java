@@ -1,13 +1,21 @@
 package xyz.monkeytong.hongbao.utils;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
+import android.view.View;
+import android.widget.RemoteViews;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import xyz.monkeytong.hongbao.R;
 
@@ -15,53 +23,121 @@ import xyz.monkeytong.hongbao.R;
  * Created by JaneLuo on 2016/1/31 0031.
  */
 public class NotificationUtil {
+    private static NotificationUtil notificationUtil = null;
+
+    public final static String ACTION_BTN = "com.example.notification.btn.login";
+    public final static String INTENT_NAME = "btnid";
+    public final static int INTENT_BTN_LOGIN = 1;
+    public boolean flag = true;
+
+    NotificationBroadcastReceiver mReceiver;
+
+    static {
+        notificationUtil = new NotificationUtil();
+    }
+
+    private NotificationUtil() {
+        super();
+    }
+
+    public static NotificationUtil getInstance() {
+        return notificationUtil;
+    }
 
     /**
      * 在状态栏显示通知
      */
-    public static void showNotification(Context context) {
+    public void showNotification(Context context) {
+
+        mReceiver = new NotificationBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_BTN);
+        context.registerReceiver(mReceiver, intentFilter);
+
         // 创建一个NotificationManager的引用
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
 
-        // 定义Notification的各种属性
-        Notification notification = new Notification(R.mipmap.ic_launcher,
-                "蓝鲨", System.currentTimeMillis());
-        //FLAG_AUTO_CANCEL   该通知能被状态栏的清除按钮给清除掉
-        //FLAG_NO_CLEAR      该通知不能被状态栏的清除按钮给清除掉
-        //FLAG_ONGOING_EVENT 通知放置在正在运行
-        //FLAG_INSISTENT     是否一直进行，比如音乐一直播放，知道用户响应
-        notification.flags |= Notification.FLAG_ONGOING_EVENT; // 将此通知放到通知栏的"Ongoing"即"正在运行"组中
-//        notification.flags |= Notification.FLAG_AUTO_CANCEL; // 表明在点击了通知栏中的"清除通知"后，此通知不清除，经常与FLAG_ONGOING_EVENT一起使用
-        notification.flags |= Notification.FLAG_SHOW_LIGHTS;
-        //DEFAULT_ALL     使用所有默认值，比如声音，震动，闪屏等等
-        //DEFAULT_LIGHTS  使用默认闪光提示
-        //DEFAULT_SOUNDS  使用默认提示声音
-        //DEFAULT_VIBRATE 使用默认手机震动，需加上<uses-permission android:name="android.permission.VIBRATE" />权限
-//        notification.defaults = Notification.DEFAULT_ALL;
-        //叠加效果常量
-        //notification.defaults=Notification.DEFAULT_LIGHTS|Notification.DEFAULT_SOUND;
-//        notification.ledARGB = Color.BLUE;
-//        notification.ledOnMS = 5000; //闪光时间，毫秒
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification);
+        remoteViews.setTextViewText(R.id.tv_up, "微信同步助手");
+        remoteViews.setTextViewText(R.id.tv_down, "点击按钮可启用/停用插件监控");
 
-        // 设置通知的事件消息
-        CharSequence contentTitle = "微信红包"; // 通知栏标题
-        CharSequence contentText = "点击快速启用/停用插件"; // 通知栏内容
-        Intent mAccessibleIntent =   new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-        PendingIntent contentItent = PendingIntent.getActivity(context, 0, mAccessibleIntent, 0);
-        notification.setLatestEventInfo(context, contentTitle, contentText, contentItent);
+        Intent intent = new Intent(ACTION_BTN);
+        intent.putExtra(INTENT_NAME, INTENT_BTN_LOGIN);
+        PendingIntent intentpi = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.btn_start, intentpi);
 
-        // 把Notification传递给NotificationManager
+        Intent mAccessibleIntent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+        PendingIntent intentContent = PendingIntent.getActivity(context, 0, mAccessibleIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+
+        builder.setOngoing(false);
+        builder.setAutoCancel(false);
+        builder.setContent(remoteViews);
+        builder.setTicker("正在使用微信同步助手");
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+
+        Notification notification = builder.build();
+        notification.flags = Notification.FLAG_NO_CLEAR;
+        notification.contentIntent = intentContent;
+
         notificationManager.notify(R.string.nia_id, notification);
     }
 
     /**
      * 在状态栏显示通知
      */
-    public static void cleanNotification(Context context) {
+    public void cleanNotification(Context context) {
+
         // 创建一个NotificationManager的引用
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(R.string.nia_id);
+        if (mReceiver != null) {
+            context.unregisterReceiver(mReceiver);
+            mReceiver = null;
+        }
+    }
+
+    private void setPluginEnabled(Context context) {
+        SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor edit = defaultSharedPreferences.edit();
+        if (flag) {
+            edit.putBoolean("pref_watch_notification", false);
+            edit.putBoolean("pref_watch_list", false);
+            edit.putBoolean("pref_watch_chat", false);
+            edit.putBoolean("pref_watch_self", false);
+            Toast.makeText(context, "插件监控已停用", Toast.LENGTH_SHORT).show();
+        } else {
+            edit.putBoolean("pref_watch_notification", true);
+            edit.putBoolean("pref_watch_list", true);
+            edit.putBoolean("pref_watch_chat", true);
+            edit.putBoolean("pref_watch_self", true);
+            Toast.makeText(context, "插件监控已启用", Toast.LENGTH_SHORT).show();
+        }
+        flag = !flag;
+        edit.commit();
+
+    }
+
+
+    class NotificationBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(ACTION_BTN)) {
+                int btn_id = intent.getIntExtra(INTENT_NAME, 0);
+                switch (btn_id) {
+                    case INTENT_BTN_LOGIN:
+                        // 收起通知栏
+                        Intent it = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+                        context.sendBroadcast(it);
+                        setPluginEnabled(context);
+                        break;
+                }
+            }
+        }
     }
 }

@@ -53,6 +53,11 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
     public void onAccessibilityEvent(AccessibilityEvent event) {
         if (sharedPreferences == null) return;
 
+        CharSequence packageNameChar = event.getPackageName();
+        String packageName = packageNameChar.toString();
+        Log.d("hb", packageName);
+
+
         setCurrentActivityName(event);
 
         /* 检测通知消息 */
@@ -157,6 +162,30 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
     }
 
     /**
+     * 递归查找拆红包按钮
+     */
+    private AccessibilityNodeInfo findOpenButton(AccessibilityNodeInfo node) {
+        if (node==null)
+            return null;
+
+        //非layout元素
+        if (node.getChildCount() == 0) {
+            if("android.widget.Button".equals(node.getClassName()))
+                return node;
+            else
+                return null;
+        }
+
+        //layout元素，遍历找button
+        for (int i = 0; i < node.getChildCount(); i++) {
+            AccessibilityNodeInfo button = findOpenButton(node.getChild(i));
+            if(button != null)
+                return button;
+        }
+        return null;
+    }
+
+    /**
      * 检查节点信息
      */
     private void checkNodeInfo(int eventType) {
@@ -176,7 +205,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
         }
 
         /* 戳开红包，红包还没抢完，遍历节点匹配“拆红包” */
-        AccessibilityNodeInfo node2 = (this.rootNodeInfo.getChildCount() > 3) ? this.rootNodeInfo.getChild(3) : null;
+        AccessibilityNodeInfo node2 = findOpenButton(this.rootNodeInfo);
         if (node2 != null && "android.widget.Button".equals(node2.getClassName()) && currentActivityName.contains(WECHAT_LUCKMONEY_RECEIVE_ACTIVITY)) {
             mUnpackNode = node2;
             mNeedUnpack = true;
@@ -250,8 +279,6 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
         if (key.equals("pref_watch_on_lock")) {
             Boolean changedValue = sharedPreferences.getBoolean(key, false);
             this.powerUtil.handleWakeLock(changedValue);
-        } else if (key.equals("pref_quick_start")) {
-
         }
     }
 
