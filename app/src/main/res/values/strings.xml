@@ -15,4 +15,5 @@
     <string name="pref_watch_exclude_words_summary">不拆开包含这些文字的红包(空格间隔)</string>
     <string name="url_github_issues">https://github.com/yangyining/WeChatLuckyMoney/issues</string>
     <string name="nia_id">nia_id</string>
+    <string name="pref_comment_words_summary">随机选择下列感谢语(空格间隔)</string>
 </resources>
