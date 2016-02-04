@@ -1,17 +1,12 @@
 # 微信红包
 
-<<<<<<< HEAD
-[![forthebadge](http://forthebadge.com/images/badges/designed-in-ms-paint.svg)](http://forthebadge.com)[![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com) 
+[![forthebadge](http://forthebadge.com/images/badges/designed-in-ms-paint.svg)](http://forthebadge.com)[![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
 
 [![Build Status](https://travis-ci.org/yangyining/WeChatLuckyMoney.svg?branch=stable)](https://travis-ci.org/yangyining/WeChatLuckyMoney)
-=======
-[![Gitter](https://badges.gitter.im/geeeeeeeeek/WeChatLuckyMoney.svg)](https://gitter.im/geeeeeeeeek/WeChatLuckyMoney?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)  [![Build Status](https://travis-ci.org/geeeeeeeeek/WeChatLuckyMoney.svg?branch=stable)](https://travis-ci.org/geeeeeeeeek/WeChatLuckyMoney)    [**ENGLISH**](https://github.com/geeeeeeeeek/WeChatLuckyMoney/blob/stable/README_EN.md)
->>>>>>> remotes/geeeeeeeeek/stable
 
 一个帮助你在微信抢红包时战无不胜的Android应用。自动检测并且拆开红包，速度超乎你的想象。
 
 
-<<<<<<< HEAD
 #Power by https://github.com/geeeeeeeeek/WeChatLuckyMoney
 =======
 ### 特性
@@ -38,14 +33,9 @@
 2. 做你想做的事。
 3. 坐等红包进账。
 
-### 实现原理
-
-请见[技术文档](https://github.com/geeeeeeeeek/WeChatLuckyMoney/blob/dev/README.md)，注意文档描述的是dev分支(已弃用)的具体实现，而不是stable分支。若有疑问，请在[ISSUES](https://github.com/geeeeeeeeek/WeChatLuckyMoney/issues)中提出。
-
 ### 更新日志
 
-完整的更新日志请见[CHANGELOG](https://github.com/geeeeeeeeek/WeChatLuckyMoney/blob/stable/CHANGELOG.md)。
->>>>>>> remotes/geeeeeeeeek/stable
+完整的更新日志请见[CHANGELOG](https://github.com/yangyining/WeChatLuckyMoney/blob/stable/CHANGELOG.md)。
 
 ### **版权及免责声明**
 
