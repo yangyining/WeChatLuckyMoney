@@ -47,7 +47,7 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
 
         explicitlyLoadPreferences();
 
-        // 设置通知栏是否常驻
+        // 设置通知栏是否常驻1
         NotificationUtil notificationUtil = NotificationUtil.getInstance( this.getApplicationContext());
         Boolean changedValue = sharedPreferences.getBoolean("pref_quick_start", false);
         // 显示常驻状态栏通知
