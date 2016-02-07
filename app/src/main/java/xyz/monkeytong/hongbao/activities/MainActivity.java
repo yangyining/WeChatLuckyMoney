@@ -40,7 +40,6 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        CrashReport.initCrashReport(getApplicationContext(), "900019352", false);
         setContentView(R.layout.activity_main);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         switchPlugin = (Button) findViewById(R.id.button_accessible);
@@ -56,7 +55,7 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
         if(changedValue){
             notificationUtil.showNotification();
         }
-        // 清楚常驻状态栏通知
+        // 清除常驻状态栏通知
         else {
             notificationUtil.cleanNotification();
         }

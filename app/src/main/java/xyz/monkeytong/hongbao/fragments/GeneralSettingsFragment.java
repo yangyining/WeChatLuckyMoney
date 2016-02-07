@@ -1,12 +1,15 @@
 package xyz.monkeytong.hongbao.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import xyz.monkeytong.hongbao.R;
+import xyz.monkeytong.hongbao.activities.SettingsActivity;
 import xyz.monkeytong.hongbao.activities.WebViewActivity;
+import xyz.monkeytong.hongbao.utils.NotificationUtil;
 import xyz.monkeytong.hongbao.utils.UpdateTask;
 
 /**
@@ -47,7 +50,6 @@ public class GeneralSettingsFragment extends PreferenceFragment {
         String summary = getResources().getString(R.string.pref_watch_exclude_words_summary);
         String value = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("pref_watch_exclude_words", "");
         if (value.length() > 0) excludeWordsPref.setSummary(summary + ":" + value);
-
         excludeWordsPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
@@ -59,6 +61,27 @@ public class GeneralSettingsFragment extends PreferenceFragment {
                 }
                 return true;
             }
+        });
+
+
+
+        final Context context = this.getActivity().getApplicationContext();
+        // Set quick start notification
+        Preference quickStart = findPreference("pref_quick_start");
+        quickStart.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                NotificationUtil notificationUtil = NotificationUtil.getInstance(context);
+                if((Boolean)newValue){
+                    notificationUtil.showNotification();
+                }
+                // 清楚常驻状态栏通知
+                else {
+                    notificationUtil.cleanNotification();
+                }
+                return true;
+            }
+
         });
     }
 }
